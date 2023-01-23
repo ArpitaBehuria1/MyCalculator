@@ -1,0 +1,134 @@
+<html>
+<head>
+<title>MainActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #0033b3;}
+.s1 { color: #080808;}
+.s2 { color: #8c8c8c; font-style: italic;}
+.s3 { color: #067d17;}
+.s4 { color: #1750eb;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+MainActivity.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.example.mycalculator;</span>
+
+<span class="s0">import </span><span class="s1">androidx.appcompat.app.AppCompatActivity;</span>
+
+
+<span class="s0">import </span><span class="s1">android.content.Context;</span>
+<span class="s0">import </span><span class="s1">android.os.Bundle;</span>
+<span class="s0">import </span><span class="s1">android.view.View;</span>
+<span class="s0">import </span><span class="s1">android.widget.TextView;</span>
+
+<span class="s0">import </span><span class="s1">com.google.android.material.button.MaterialButton;</span>
+<span class="s0">import </span><span class="s1">org.mozilla.javascript.Context;</span>
+<span class="s0">import </span><span class="s1">org.mozilla.javascript.Scriptable;</span>
+
+
+
+<span class="s0">public class </span><span class="s1">MainActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity </span><span class="s0">implements </span><span class="s1">View.OnClickListener {</span>
+
+    <span class="s1">TextView resultTv, solutionTv;</span>
+    <span class="s1">MaterialButton buttonC, buttonBrackopen, buttonBrackclose;</span>
+    <span class="s1">MaterialButton buttonDivide, buttonMultiply, buttonSubstraction, buttonAddition, buttonEqualsto, buttonModulus;</span>
+    <span class="s1">MaterialButton button0, button1, button2, button3, button4, button5, button6, button7, button8, button9;</span>
+    <span class="s1">MaterialButton buttonDot, buttonAC;</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) {</span>
+        <span class="s0">super</span><span class="s1">.onCreate(savedInstanceState);</span>
+        <span class="s1">setContentView(R.layout.activity_main);</span>
+        <span class="s1">resultTv = findViewById(R.id.result_tv);</span>
+        <span class="s1">solutionTv = findViewById(R.id.solution_tv);</span>
+
+        <span class="s1">assignId(buttonC, R.id.button_c);</span>
+        <span class="s1">assignId(buttonBrackopen, R.id.button_open_bracket);</span>
+        <span class="s1">assignId(buttonBrackclose, R.id.button_close_bracket);</span>
+        <span class="s1">assignId(buttonDivide, R.id.button_div);</span>
+        <span class="s1">assignId(buttonMultiply, R.id.button_mul);</span>
+        <span class="s1">assignId(buttonSubstraction, R.id.button_sub);</span>
+        <span class="s1">assignId(buttonAddition, R.id.button_add);</span>
+        <span class="s1">assignId(buttonEqualsto, R.id.button_eqaulto);</span>
+        <span class="s1">assignId(buttonAC, R.id.button_ac);</span>
+        <span class="s1">assignId(button0, R.id.button_zero);</span>
+        <span class="s1">assignId(button1, R.id.button_one);</span>
+        <span class="s1">assignId(button2, R.id.button_two);</span>
+        <span class="s1">assignId(button3, R.id.button_three);</span>
+        <span class="s1">assignId(button4, R.id.button_four);</span>
+        <span class="s1">assignId(button5, R.id.button_five);</span>
+        <span class="s1">assignId(button6, R.id.button_six);</span>
+        <span class="s1">assignId(button7, R.id.button_seven);</span>
+        <span class="s1">assignId(button8, R.id.button_eight);</span>
+        <span class="s1">assignId(button9, R.id.button_nine);</span>
+        <span class="s1">assignId(buttonDot, R.id.button_dot);</span>
+
+
+    <span class="s1">}</span>
+
+    <span class="s0">void </span><span class="s1">assignId(MaterialButton btn, </span><span class="s0">int </span><span class="s1">id) {</span>
+        <span class="s1">btn = findViewById(id);</span>
+        <span class="s1">btn.setOnClickListener(</span><span class="s0">this</span><span class="s1">);</span>
+
+    <span class="s1">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public void </span><span class="s1">onClick(View view) {</span>
+        <span class="s1">MaterialButton button = (MaterialButton) view;</span>
+        <span class="s1">String buttonText = button.getText().toString();</span>
+<span class="s2">//    solutionTv.setText(buttonText);</span>
+        <span class="s1">String dataToCalculate = solutionTv.getText().toString();</span>
+
+        <span class="s0">if </span><span class="s1">(buttonText.equals(</span><span class="s3">&quot;AC&quot;</span><span class="s1">)) {</span>
+            <span class="s1">solutionTv.setText(</span><span class="s3">&quot; &quot;</span><span class="s1">);</span>
+            <span class="s1">resultTv.setText(</span><span class="s3">&quot;0&quot;</span><span class="s1">);</span>
+            <span class="s0">return</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">if </span><span class="s1">(buttonText.equals(</span><span class="s3">&quot;=&quot;</span><span class="s1">)) {</span>
+            <span class="s1">solutionTv.setText(resultTv.getText());</span>
+            <span class="s0">return</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">if </span><span class="s1">(buttonText.equals(</span><span class="s3">&quot;C&quot;</span><span class="s1">)) {</span>
+            <span class="s1">dataToCalculate = dataToCalculate.substring(</span><span class="s4">0</span><span class="s1">, dataToCalculate.length() - </span><span class="s4">1</span><span class="s1">);</span>
+        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s1">dataToCalculate = dataToCalculate + buttonText;</span>
+
+        <span class="s1">}</span>
+
+
+        <span class="s1">solutionTv.setText(dataToCalculate);</span>
+
+        <span class="s1">String finalResult=getResult(dataToCalculate);</span>
+
+        <span class="s0">if</span><span class="s1">(!finalResult.equals(</span><span class="s3">&quot;Err&quot;</span><span class="s1">))</span>
+        <span class="s1">{</span>
+            <span class="s1">resultTv.setText(finalResult);</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s1">String getResult(String data) {</span>
+        <span class="s0">try </span><span class="s1">{</span>
+            <span class="s1">Context context = Context.enter();</span>
+            <span class="s1">context.setOptimizationLevel(-</span><span class="s4">1</span><span class="s1">);</span>
+            <span class="s1">Scriptable scriptable = context.initStandardObjects();</span>
+            <span class="s1">String finalResult = context.evaluateString(scriptable, data,</span><span class="s3">&quot;Javascript&quot;</span><span class="s1">,</span><span class="s4">1</span><span class="s1">,</span><span class="s0">null</span><span class="s1">).toString();</span>
+            <span class="s0">if</span><span class="s1">(finalResult.endsWith(</span><span class="s3">&quot;.0&quot;</span><span class="s1">))</span>
+            <span class="s1">{</span>
+                <span class="s1">finalResult=finalResult.replace(</span><span class="s3">&quot;.0&quot;</span><span class="s1">,</span><span class="s3">&quot;&quot;</span><span class="s1">);</span>
+            <span class="s1">}</span>
+            <span class="s0">return </span><span class="s1">finalResult;</span>
+        <span class="s1">} </span><span class="s0">catch </span><span class="s1">(Exception e) {</span>
+
+            <span class="s0">return </span><span class="s3">&quot;err&quot;</span><span class="s1">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+<span class="s1">}</span></pre>
+</body>
+</html>
